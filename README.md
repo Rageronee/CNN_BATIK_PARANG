@@ -2,7 +2,7 @@
 
 [![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm-dark.svg)](https://huggingface.co/spaces/ragerone/CNN_BATIK_PARANG/tree/main)
 
-![Banner](https://img.freepik.com/premium-photo/batik-parang-indonesian-traditional-clothes_41969-2313.jpg)
+![Banner](https://sonobudoyo.jogjaprov.go.id/resource/uploads/img/news/header_Screen_Shot_2024-10-06_at_18_37_53.png)
 
 ## 📌 Project Overview
 
