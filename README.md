@@ -1,6 +1,6 @@
 # Comparative Analysis of CNN Architectures (ResNet-50 vs. MobileNetV2) for Batik Parang Classification
 
-[![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm-dark.svg)](https://huggingface.co/spaces/ragerone/CNN_BATIK_PARANG)
+[![Open in Spaces](https://huggingface.co/datasets/huggingface/badges/raw/main/open-in-hf-spaces-sm-dark.svg)](https://huggingface.co/spaces/ragerone/CNN_BATIK_PARANG/tree/main)
 
 ![Banner](https://img.freepik.com/premium-photo/batik-parang-indonesian-traditional-clothes_41969-2313.jpg)
 
@@ -57,7 +57,7 @@ We evaluated the models on the validation set using **Accuracy**, **Precision**,
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/Rageronee/CNN-BATIK-PARANGCNN_BATIK_PARANG.git
+git clone https://github.com/Rageronee/CNN_BATIK_PARANG.git
 cd CNN_BATIK_PARANG
 ```
 
@@ -80,7 +80,7 @@ streamlit run src/app.py
 This model is deployed using **Hugging Face Spaces**.
 
 - **Platform**: Spaces (Streamlit SDK)
-- **Link**: [Click here to view Demo](https://huggingface.co/spaces/ragerone/CNN_BATIK_PARANG)
+- **Link**: [Click here to view Demo](https://huggingface.co/spaces/ragerone/CNN_BATIK_PARANG/tree/main)
 
 ## 📁 Repository Structure
 
