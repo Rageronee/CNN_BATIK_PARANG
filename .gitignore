@@ -1,0 +1,21 @@
+
+# Data
+parang_1/
+parang_2/
+plots/
+
+# Models (Too large for standard GitHub for ResNet > 100MB)
+# Upload models directly to Hugging Face instead
+models/
+*.h5
+*.keras
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# OS
+.DS_Store
+Thumbs.db

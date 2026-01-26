@@ -1,0 +1,7 @@
+
+tensorflow
+matplotlib
+seaborn
+scikit-learn
+streamlit
+pypdf
