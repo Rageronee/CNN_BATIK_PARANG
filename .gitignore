@@ -1,12 +1,14 @@
 
 # Data
-parang_1/
-parang_2/
-plots/
+parang_1/*
+!parang_1/README.md
+parang_2/*
+!parang_2/README.md
 
 # Models (Too large for standard GitHub for ResNet > 100MB)
 # Upload models directly to Hugging Face instead
-models/
+models/*
+!models/README.md
 *.h5
 *.keras
 
