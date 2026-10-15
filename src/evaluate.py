@@ -6,20 +6,23 @@ import seaborn as sns
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 import os
 import time
+import sys
+
+# Add the 'src' directory to the Python path to allow absolute imports
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+import argparse
 from data_loader import get_data_generators
 
-BASE_DIR = r"d:\Data Main\Portfolio_afnan\CNN_Batik_Parang"
-MODEL_DIR = os.path.join(BASE_DIR, 'models')
-PLOTS_DIR = os.path.join(BASE_DIR, 'plots')
-os.makedirs(PLOTS_DIR, exist_ok=True)
+# Automatically resolve BASE_DIR to the root directory (parent of src)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def get_model_size(file_path):
     size_bytes = os.path.getsize(file_path)
     return size_bytes / (1024 * 1024) # Convert to MB
 
-def evaluate_model(model_name, test_gen):
+def evaluate_model(model_name, test_gen, model_dir, plots_dir):
     print(f"--- Evaluating {model_name} ---")
-    model_path = os.path.join(MODEL_DIR, f"{model_name}_best.h5")
+    model_path = os.path.join(model_dir, f"{model_name}_best.h5")
     
     if not os.path.exists(model_path):
         print(f"Model {model_name} not found at {model_path}. Skipping.")
@@ -51,7 +54,7 @@ def evaluate_model(model_name, test_gen):
     plt.title(f'Confusion Matrix - {model_name}')
     plt.ylabel('True Label')
     plt.xlabel('Predicted Label')
-    plt.savefig(os.path.join(PLOTS_DIR, f'confusion_matrix_{model_name}.png'))
+    plt.savefig(os.path.join(plots_dir, f'confusion_matrix_{model_name}.png'))
     plt.close()
 
     print(f"Results for {model_name}:")
@@ -73,11 +76,22 @@ def evaluate_model(model_name, test_gen):
     }
 
 if __name__ == "__main__":
-    _, test_gen = get_data_generators(BASE_DIR)
+    parser = argparse.ArgumentParser(description="Evaluate CNN Models for Batik Parang Classification")
+    parser.add_argument('--model', type=str, choices=['resnet50', 'mobilenetv2', 'all'], default='all', help="Model to evaluate")
+    parser.add_argument('--data_dir', type=str, default=BASE_DIR, help="Base directory of the dataset")
+    parser.add_argument('--model_dir', type=str, default=os.path.join(BASE_DIR, 'models'), help="Directory where models are saved")
+    parser.add_argument('--plots_dir', type=str, default=os.path.join(BASE_DIR, 'plots'), help="Directory to save evaluation plots")
+
+    args = parser.parse_args()
+
+    os.makedirs(args.plots_dir, exist_ok=True)
+    _, test_gen = get_data_generators(args.data_dir)
     
     results = []
-    for m in ['mobilenetv2', 'resnet50']:
-        res = evaluate_model(m, test_gen)
+    models_to_evaluate = ['mobilenetv2', 'resnet50'] if args.model == 'all' else [args.model]
+
+    for m in models_to_evaluate:
+        res = evaluate_model(m, test_gen, args.model_dir, args.plots_dir)
         if res:
             results.append(res)
     

@@ -82,6 +82,11 @@ def get_data_generators(data_dir):
 
 if __name__ == "__main__":
     # Test the loader
-    base_path = r"d:\Data Main\Portfolio_afnan\CNN_Batik_Parang"
-    train_gen, test_gen = get_data_generators(base_path)
-    print("Class indices:", train_gen.class_indices)
+    # Using the parent directory of 'src' as the base path
+    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    try:
+        train_gen, test_gen = get_data_generators(base_path)
+        print("Class indices:", train_gen.class_indices)
+    except FileNotFoundError as e:
+        print(f"Error: {e}")
+        print(f"Please ensure the dataset is placed at: {os.path.join(base_path, 'parang_1', 'citra latih')}")

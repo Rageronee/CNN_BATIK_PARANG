@@ -67,7 +67,14 @@ cd CNN_BATIK_PARANG
 pip install -r requirements.txt
 ```
 
-### 3. Launch Application
+### 3. Setup Dataset and Models
+By default, the datasets (`parang_1` and `parang_2`) and trained models are excluded from version control to keep the repository lightweight.
+To run the scripts:
+1. Place your training dataset inside `parang_1/citra latih/` (ensure it contains subdirectories for each class, e.g., `Parang Rusak` and `Non-Parang Rusak`).
+2. Place your evaluation 'wild' dataset inside `parang_2/`.
+3. Put your pre-trained models (`resnet50_best.h5` and `mobilenetv2_best.h5`) inside the `models/` directory.
+
+### 4. Launch Application
 
 We have built a custom Streamlit app to demonstrate "Wild" inference (using data outside the training distribution).
 

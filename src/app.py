@@ -35,9 +35,20 @@ CLASS_LABELS = {0: 'Non-Parang Rusak', 1: 'Parang Rusak'} # Adjust based on data
 @st.cache_resource
 def load_models():
     models = {}
+    resnet_path = os.path.join(MODEL_DIR, 'resnet50_best.h5')
+    mobilenet_path = os.path.join(MODEL_DIR, 'mobilenetv2_best.h5')
+
+    missing_models = []
+    if not os.path.exists(resnet_path): missing_models.append('ResNet-50')
+    if not os.path.exists(mobilenet_path): missing_models.append('MobileNetV2')
+
+    if missing_models:
+        st.warning(f"⚠️ Model berikut tidak ditemukan: {', '.join(missing_models)}. Pastikan Anda sudah meletakkan file model (.h5) di folder `models/`.")
+        return models
+
     try:
-        models['resnet50'] = tf.keras.models.load_model(os.path.join(MODEL_DIR, 'resnet50_best.h5'))
-        models['mobilenetv2'] = tf.keras.models.load_model(os.path.join(MODEL_DIR, 'mobilenetv2_best.h5'))
+        models['resnet50'] = tf.keras.models.load_model(resnet_path)
+        models['mobilenetv2'] = tf.keras.models.load_model(mobilenet_path)
     except Exception as e:
         st.error(f"Error loading models: {e}")
     return models
@@ -62,13 +73,16 @@ with col1:
     else:
         if os.path.exists(PARANG_2_DIR):
             files = [f for f in os.listdir(PARANG_2_DIR) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
-            selected_file = st.selectbox("Pilih Gambar:", files)
-            if selected_file:
-                image_file = os.path.join(PARANG_2_DIR, selected_file)
+            if not files:
+                st.warning("Folder `parang_2/` ditemukan, tetapi tidak ada gambar di dalamnya. Silakan tambahkan gambar `.jpg` atau `.png`.")
+            else:
+                selected_file = st.selectbox("Pilih Gambar:", files)
+                if selected_file:
+                    image_file = os.path.join(PARANG_2_DIR, selected_file)
         else:
-            st.warning("Folder parang_2 tidak ditemukan.")
+            st.warning("Folder `parang_2/` tidak ditemukan. Silakan buat folder tersebut dan tambahkan gambar uji.")
 
-    if image_file:
+    if image_file and models:
         img = Image.open(image_file)
         st.image(img, caption="Citra Input", use_container_width=True)
         
